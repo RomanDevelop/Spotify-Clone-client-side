@@ -76,7 +76,7 @@ class _SignupPageState extends State<SignupPage> {
                     Left(value: final l) => l,
                     Right(value: final r) => r.name,
                   };
-                },
+                }, // 3.05.48
               ),
               const SizedBox(height: 20),
               GestureDetector(
