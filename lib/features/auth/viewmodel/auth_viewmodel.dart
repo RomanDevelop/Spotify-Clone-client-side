@@ -1,7 +1,7 @@
 import 'package:client/core/model/user_model.dart';
+import 'package:client/core/providers/current_user_notifier.dart';
 import 'package:client/features/auth/repositories/auth_remote_repository.dart';
 import 'package:client/features/auth/repositories/client/lib/features/auth/repositories/auth_local_repository.dart';
-import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:fpdart/fpdart.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
 
@@ -11,11 +11,13 @@ part 'auth_viewmodel.g.dart';
 class AuthViewmodel extends _$AuthViewmodel {
   late AuthRemoteRepository _authRemoteRepository;
   late AuthLocalRepository _authLocalRepository;
+  late CurrentUserNotifier _currentUserNotifier;
 
   @override
   AsyncValue<UserModel>? build() {
     _authRemoteRepository = ref.watch(authRemoteRepositoryProvider);
     _authLocalRepository = ref.watch(authLocalRepositoryProvider);
+    _currentUserNotifier = ref.watch(currentUserNotifierProvider.notifier);
     return null;
   }
 
@@ -65,6 +67,7 @@ class AuthViewmodel extends _$AuthViewmodel {
 
   AsyncValue<UserModel>? _loginSuccess(UserModel user) {
     _authLocalRepository.setToken(user.token);
+    _currentUserNotifier.addUser(user);
     return state = AsyncValue.data(user);
   }
 
@@ -79,10 +82,15 @@ class AuthViewmodel extends _$AuthViewmodel {
             l.message,
             StackTrace.current,
           ),
-        Right(value: final r) => AsyncValue.data(r),
+        Right(value: final r) => _getDataSuccess(r),
       };
       return val.value;
     }
     return null;
+  }
+
+  AsyncValue<UserModel> _getDataSuccess(UserModel user) {
+    _currentUserNotifier.addUser(user);
+    return state = AsyncValue.data(user);
   }
 }
