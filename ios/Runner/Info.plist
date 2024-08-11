@@ -45,5 +45,11 @@
 	<true/>
 	<key>UIApplicationSupportsIndirectInputEvents</key>
 	<true/>
+	<key>NSAppleMusicUsageDescription</key>
+	<string>This app requires access to your Apple Music library to provide personalized music recommendations and allow you to play your favorite songs within the app.</string>
+	<key>NSPhotoLibraryUsageDescription</key>
+	<string>This app requires access to your photo library to allow you to upload, edit, and share your favorite photos.</string>
+	<key>NSMicrophoneUsageDescription</key>
+	<string>This app requires access to the microphone for recording audio during voice notes, video calls, and other interactive features.</string>
 </dict>
 </plist>
