@@ -1,3 +1,4 @@
+import 'package:client/core/providers/current_song_notifier.dart';
 import 'package:client/core/theme/app_pallete.dart';
 import 'package:client/core/widgets/loader.dart';
 import 'package:client/features/home/viewmodel/home_viewmodel.dart';
@@ -34,9 +35,9 @@ class SongsPage extends ConsumerWidget {
 
                         return GestureDetector(
                           onTap: () {
-                            // ref
-                            //     .read(currentSongNotifierProvider.notifier)
-                            //     .updateSong(song);
+                            ref
+                                .read(currentSongNotifierProvider.notifier)
+                                .updateSong(song);
                           },
                           child: Padding(
                             padding: const EdgeInsets.only(left: 16.0),
