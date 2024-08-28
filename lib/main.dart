@@ -7,7 +7,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 void main() async {
-  WidgetsFlutterBinding.ensureInitialized();
+  WidgetsFlutterBinding.ensureInitialized(); // 8.40.07
   final container = ProviderContainer();
 
   await container.read(authViewmodelProvider.notifier).initSharedPreferences();

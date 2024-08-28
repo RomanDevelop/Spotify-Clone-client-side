@@ -1,6 +1,7 @@
 import 'package:client/core/providers/current_song_notifier.dart';
 import 'package:client/core/theme/app_pallete.dart';
 import 'package:client/core/utils.dart';
+import 'package:client/features/home/view/widgets/music_player.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
@@ -21,29 +22,29 @@ class MusicSlab extends ConsumerWidget {
 
     return GestureDetector(
       onTap: () {
-        // Navigator.of(context).push(
-        //   PageRouteBuilder(
-        //     pageBuilder: (context, animation, secondaryAnimation) {
-        //       return const MusicPlayer();
-        //     },
-        //     transitionsBuilder:
-        //         (context, animation, secondaryAnimation, child) {
-        //       final tween =
-        //           Tween(begin: const Offset(0, 1), end: Offset.zero).chain(
-        //         CurveTween(
-        //           curve: Curves.easeIn,
-        //         ),
-        //       );
+        Navigator.of(context).push(
+          PageRouteBuilder(
+            pageBuilder: (context, animation, secondaryAnimation) {
+              return const MusicPlayer();
+            },
+            transitionsBuilder:
+                (context, animation, secondaryAnimation, child) {
+              final tween =
+                  Tween(begin: const Offset(0, 1), end: Offset.zero).chain(
+                CurveTween(
+                  curve: Curves.easeIn,
+                ),
+              );
 
-        //       final offsetAnimation = animation.drive(tween);
+              final offsetAnimation = animation.drive(tween);
 
-        //       return SlideTransition(
-        //         position: offsetAnimation,
-        //         child: child,
-        //       );
-        //     },
-        //   ),
-        // );
+              return SlideTransition(
+                position: offsetAnimation,
+                child: child,
+              );
+            },
+          ),
+        );
       },
       child: Stack(
         children: [
