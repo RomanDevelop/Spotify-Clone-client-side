@@ -2,6 +2,7 @@ import 'package:client/core/providers/current_song_notifier.dart';
 import 'package:client/core/theme/app_pallete.dart';
 import 'package:client/core/utils.dart';
 import 'package:client/features/home/view/widgets/music_player.dart';
+import 'package:client/features/home/viewmodel/home_viewmodel.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
@@ -105,9 +106,9 @@ class MusicSlab extends ConsumerWidget {
                   children: [
                     IconButton(
                       onPressed: () async {
-                        // await ref.read(homeViewModelProvider.notifier).favSong(
-                        //       songId: currentSong.id,
-                        //     );
+                        await ref.read(homeViewModelProvider.notifier).favSong(
+                              songId: currentSong.id,
+                            );
                       },
                       icon: const Icon(CupertinoIcons.heart),
                       // icon: Icon(

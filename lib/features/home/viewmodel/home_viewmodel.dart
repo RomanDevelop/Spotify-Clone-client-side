@@ -24,19 +24,19 @@ Future<List<SongModel>> getAllSongs(GetAllSongsRef ref) async {
   };
 }
 
-// @riverpod
-// Future<List<SongModel>> getFavSongs(GetFavSongsRef ref) async {
-//   final token =
-//       ref.watch(currentUserNotifierProvider.select((user) => user!.token));
-//   final res = await ref.watch(homeRepositoryProvider).getFavSongs(
-//         token: token,
-//       );
+@riverpod
+Future<List<SongModel>> getFavSongs(GetFavSongsRef ref) async {
+  final token =
+      ref.watch(currentUserNotifierProvider.select((user) => user!.token));
+  final res = await ref.watch(homeRepositoryProvider).getFavSongs(
+        token: token,
+      );
 
-//   return switch (res) {
-//     Left(value: final l) => throw l.message,
-//     Right(value: final r) => r,
-//   };
-// }
+  return switch (res) {
+    Left(value: final l) => throw l.message,
+    Right(value: final r) => r,
+  };
+}
 
 @riverpod
 class HomeViewModel extends _$HomeViewModel {
@@ -79,20 +79,21 @@ class HomeViewModel extends _$HomeViewModel {
     return _homeLocalRepository.loadSongs();
   }
 
-  // Future<void> favSong({required String songId}) async {
-  //   state = const AsyncValue.loading();
-  //   final res = await _homeRepository.favSong(
-  //     songId: songId,
-  //     token: ref.read(currentUserNotifierProvider)!.token,
-  //   );
+  Future<void> favSong({required String songId}) async {
+    state = const AsyncValue.loading();
+    final res = await _homeRepository.favSong(
+      songId: songId,
+      token: ref.read(currentUserNotifierProvider)!.token,
+    );
 
-  //   final val = switch (res) {
-  //     Left(value: final l) => state =
-  //         AsyncValue.error(l.message, StackTrace.current),
-  //     Right(value: final r) => _favSongSuccess(r, songId),
-  //   };
-  //   print(val);
-  // }
+    final val = switch (res) {
+      Left(value: final l) => state =
+          AsyncValue.error(l.message, StackTrace.current),
+      Right(value: final r) => state = AsyncValue.data(r)
+      // Right(value: final r) => _favSongSuccess(r, songId),
+    };
+    print(val);
+  }
 
   // AsyncValue _favSongSuccess(bool isFavorited, String songId) {
   //   final userNotifier = ref.read(currentUserNotifierProvider.notifier);
