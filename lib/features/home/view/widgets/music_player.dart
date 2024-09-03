@@ -104,14 +104,13 @@ class MusicPlayer extends ConsumerWidget {
                       ),
                       const Expanded(child: SizedBox()),
                       IconButton(
-                        onPressed: () {},
-                        // onPressed: () async {
-                        //   await ref
-                        //       .read(homeViewModelProvider.notifier)
-                        //       .favSong(
-                        //         songId: currentSong.id,
-                        //       );
-                        // },
+                        onPressed: () async {
+                          await ref
+                              .read(homeViewModelProvider.notifier)
+                              .favSong(
+                                songId: currentSong.id,
+                              );
+                        },
                         icon: Icon(CupertinoIcons.heart),
                         // icon: Icon(
                         //   userFavorites
