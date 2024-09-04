@@ -1,4 +1,5 @@
 import 'package:client/core/providers/current_song_notifier.dart';
+import 'package:client/core/providers/current_user_notifier.dart';
 import 'package:client/core/theme/app_pallete.dart';
 import 'package:client/core/utils.dart';
 import 'package:client/features/home/view/widgets/music_player.dart';
@@ -14,8 +15,8 @@ class MusicSlab extends ConsumerWidget {
   Widget build(BuildContext context, WidgetRef ref) {
     final currentSong = ref.watch(currentSongNotifierProvider);
     final songNotifier = ref.read(currentSongNotifierProvider.notifier);
-    // final userFavorites = ref
-    //     .watch(currentUserNotifierProvider.select((data) => data!.favorites));
+    final userFavorites = ref
+        .watch(currentUserNotifierProvider.select((data) => data!.favorites));
 
     if (currentSong == null) {
       return const SizedBox();
@@ -110,16 +111,15 @@ class MusicSlab extends ConsumerWidget {
                               songId: currentSong.id,
                             );
                       },
-                      icon: const Icon(CupertinoIcons.heart),
-                      // icon: Icon(
-                      //   userFavorites
-                      //           .where((fav) => fav.song_id == currentSong.id)
-                      //           .toList()
-                      //           .isNotEmpty
-                      //       ? CupertinoIcons.heart_fill
-                      //       : CupertinoIcons.heart,
-                      //   color: Pallete.whiteColor,
-                      // ),
+                      icon: Icon(
+                        userFavorites
+                                .where((fav) => fav.song_id == currentSong.id)
+                                .toList()
+                                .isNotEmpty
+                            ? CupertinoIcons.heart_fill
+                            : CupertinoIcons.heart,
+                        color: Pallete.whiteColor,
+                      ),
                     ),
                     IconButton(
                       onPressed: songNotifier.playPause,

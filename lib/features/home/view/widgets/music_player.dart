@@ -15,8 +15,8 @@ class MusicPlayer extends ConsumerWidget {
     final currentSong = ref.watch(currentSongNotifierProvider);
     final songNotifier = ref.read(currentSongNotifierProvider.notifier);
 
-    // final userFavorites = ref
-    //     .watch(currentUserNotifierProvider.select((data) => data!.favorites));
+    final userFavorites = ref
+        .watch(currentUserNotifierProvider.select((data) => data!.favorites));
 
     return Container(
       padding: const EdgeInsets.symmetric(horizontal: 24.0),
@@ -111,16 +111,15 @@ class MusicPlayer extends ConsumerWidget {
                                 songId: currentSong.id,
                               );
                         },
-                        icon: Icon(CupertinoIcons.heart),
-                        // icon: Icon(
-                        //   userFavorites
-                        //           .where((fav) => fav.song_id == currentSong.id)
-                        //           .toList()
-                        //           .isNotEmpty
-                        //       ? CupertinoIcons.heart_fill
-                        //       : CupertinoIcons.heart,
-                        //   color: Pallete.whiteColor,
-                        // ),
+                        icon: Icon(
+                          userFavorites
+                                  .where((fav) => fav.song_id == currentSong.id)
+                                  .toList()
+                                  .isNotEmpty
+                              ? CupertinoIcons.heart_fill
+                              : CupertinoIcons.heart,
+                          color: Pallete.whiteColor,
+                        ),
                       ),
                     ],
                   ),
